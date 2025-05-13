@@ -1,0 +1,19 @@
+ <div class="bg-[#0C0A0A]">
+    <app-header></app-header>
+
+    <!-- banner -->
+    <div class="h-[100vh] banner flex justify-center">
+        <div class="flex flex-col items-center justify-center text-white">
+            <span class="text-5xl font-semibold">Seu diário de filmes e séries</span>
+            <span class="text-2xl font-medium text-center">Salve seus filmes, acompanhe seu progresso <br>e explore o mundo do cinema!</span>
+        </div>
+    </div>
+
+    <!-- cards -->
+     <div class="flex flex-row py-10 justify-evenly flex-wrap gap-5 xl:gap-0">
+        @for (card of cards; track $index) {
+            <app-infocard [title]="card.title" [content]="card.content" [imgPath]="card.imgPath"></app-infocard>
+        } 
+     </div>
+
+</div>
