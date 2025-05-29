@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Infocard } from '../../shared/models/infocard';
+import { TmdbService } from '../../shared/services/tmdb/tmdb.service';
 
 @Component({
   selector: 'app-initial-page',
@@ -7,7 +8,7 @@ import { Infocard } from '../../shared/models/infocard';
   styleUrl: './initial-page.component.scss',
   standalone: false
 })
-export class InitialPageComponent {
+export class InitialPageComponent implements OnInit {
   public cards: Infocard[] = [
     {
       title: 'Acompanhe',
@@ -24,6 +25,31 @@ export class InitialPageComponent {
       content: 'suas séries e filmes favoritos e marque seu progresso.',
       imgPath: '/maratone.png'
     }
-  ]
+  ];
 
+  public detailCardsMovies:any[] = [];
+  public detailCardsTVShows:any[] = [];
+
+  constructor(private _tmdbService: TmdbService) {}
+  
+  public ngOnInit(): void {
+    this._tmdbService.getWeeklyTrendingMovies().subscribe( {
+      next: (response) => {
+        this.detailCardsMovies = response
+      },
+      error: (error) => {
+        // TODO
+      }
+    })
+  
+    this._tmdbService.getWeeklyTrendingTvShows().subscribe( {
+      next: (response) => {
+        this.detailCardsTVShows = response
+      },
+      error: (error) => {
+        // TODO
+      }
+    })
+    
+  }
 }

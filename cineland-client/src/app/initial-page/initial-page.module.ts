@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InitialPageComponent } from './initial-page/initial-page.component';
 import { InitialPageRoutingModule } from './initial-page-routing.module';
-import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [InitialPageComponent],
@@ -11,7 +12,8 @@ import { SharedModule } from '../shared/shared.module';
     MatIconModule,
     CommonModule,
     InitialPageRoutingModule,
-    SharedModule
+    SharedModule,
+    MatDividerModule,
   ],
   exports: [InitialPageComponent],
 })

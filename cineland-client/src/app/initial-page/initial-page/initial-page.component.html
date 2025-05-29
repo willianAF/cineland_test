@@ -1,4 +1,4 @@
- <div class="bg-[#0C0A0A]">
+ <div class="bg-[#0C0A0A] flex flex-col">
     <app-header></app-header>
 
     <!-- banner -->
@@ -10,10 +10,37 @@
     </div>
 
     <!-- cards -->
-     <div class="flex flex-row py-10 justify-evenly flex-wrap gap-5 xl:gap-0">
+     <div class="flex flex-row py-10 justify-evenly flex-wrap gap-5 xl:gap-0 ">
         @for (card of cards; track $index) {
             <app-infocard [title]="card.title" [content]="card.content" [imgPath]="card.imgPath"></app-infocard>
         } 
      </div>
 
+     <mat-divider class="pb-10 w-[90%] self-center !border-t-[#FAA602] !border-t-[2px]"></mat-divider>
+    
+     <!-- detail cards movies -->
+     <div class="flex justify-center">
+         <div class="flex w-[90%] text-white justify-between text-2xl">
+             <span>Melhores filmes da semana</span>
+             <span>Veja mais ></span>
+         </div>
+     </div>
+    <div class="flex flex-row justify-evenly self-center pb-5 pt-4 px-5 gap-8 text-white font-bold text-3xl text-shadow-xs overflow-x-auto scrollbar">
+        @for(detailCardMovie of detailCardsMovies; track $index){
+            <app-detailcard [detailCardData]="detailCardMovie" [rankingNumber]="$index+1"></app-detailcard>
+        }
+    </div>
+
+    <!-- detail cards series -->
+    <div class="flex justify-center">
+        <div class="flex w-[90%] text-white pt-10 justify-between text-2xl">
+            <span>Melhores séries da semana</span>
+            <span>Veja mais ></span>
+        </div>
+    </div>
+    <div class="flex flex-row justify-evenly self-center pb-5 pt-4 px-5 gap-8 text-white font-bold text-3xl text-shadow-xs overflow-x-auto scrollbar">
+        @for(detailCardsTVShow of detailCardsTVShows; track $index){
+            <app-detailcard [detailCardData]="detailCardsTVShow" [rankingNumber]="$index+1"></app-detailcard>
+        }
+    </div>
 </div>
