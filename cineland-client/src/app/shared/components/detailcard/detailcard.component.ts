@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-detailcard',
@@ -8,7 +8,7 @@ import { AfterViewInit, Component, Input } from '@angular/core';
 })
 
 export class DetailcardComponent implements AfterViewInit {
-  
+  @ViewChild('imageContainer') imageContainer?: ElementRef <HTMLElement>;
   @Input() rankingNumber: number = 0;
   @Input() detailCardData: any = {};
   
@@ -20,12 +20,13 @@ export class DetailcardComponent implements AfterViewInit {
   }
   
   public setBackground(): void {
-    const element = document.querySelector(`#image-container-${this.detailCardData.id}`) as HTMLElement;
-    element.style.backgroundImage = !this.selected ? `url("${this.detailCardData.posterPath}")` : `url('${this.detailCardData.backdropPath}')`;
-    element.classList.toggle('blur')
+    if(!this.imageContainer)
+      return;
+    this.imageContainer.nativeElement.style.backgroundImage = !this.selected ? `url("${this.detailCardData.posterPath}")` : `url('${this.detailCardData.backdropPath}')`;
+    this.imageContainer.nativeElement.classList.toggle('blur')
   }
 
-  ngAfterViewInit() {
+  public ngAfterViewInit() : void {
     this.setBackground();  
   }
 }

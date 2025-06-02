@@ -3,7 +3,7 @@
         <div class="h-[50px] w-[50px] rounded-[100%] bg-yellow-400 flex items-center justify-center absolute top-[-1rem] left-[-1rem] rounded-xl z-2">
             <span>{{rankingNumber}}</span>
         </div>
-        <div (mouseenter)="toggleSelected()" (mouseleave)="toggleSelected()" id="image-container-{{detailCardData.id}}" class="w-65 h-[25rem] bg-contain bg-no-repeat transition-all duration-150 ease-out hover:w-[35rem] z-1 hover:bg-cover hover:bg-center blur"></div>
+        <div (mouseenter)="toggleSelected()" (mouseleave)="toggleSelected()" #imageContainer class="w-65 h-[25rem] bg-contain bg-no-repeat transition-all duration-150 ease-out hover:w-[35rem] z-1 hover:bg-cover hover:bg-center blur"></div>
     </div>
 
     
