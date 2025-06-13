@@ -9,11 +9,11 @@ import { MatDividerModule } from '@angular/material/divider';
 @NgModule({
   declarations: [InitialPageComponent],
   imports: [
-    MatIconModule,
     CommonModule,
-    InitialPageRoutingModule,
     SharedModule,
-    MatDividerModule,
+    InitialPageRoutingModule,
+    MatIconModule,
+    MatDividerModule
   ],
   exports: [InitialPageComponent],
 })
