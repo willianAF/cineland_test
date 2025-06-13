@@ -27,8 +27,12 @@ export class InitialPageComponent implements OnInit {
     }
   ];
 
+  counter(i: number) {
+    return new Array(i);
+  }
+
   public detailCardsMovies:any[] = [];
-  public detailCardsTVShows:any[] = [];
+  public detailCardsTVShows:any[] = [];   
 
   constructor(private _tmdbService: TmdbService) {}
   
@@ -50,6 +54,6 @@ export class InitialPageComponent implements OnInit {
         // TODO
       }
     })
-    
   }
 }
+

@@ -2,5 +2,9 @@ export interface MovieDTO {
     id: number;
     title: string;
     posterPath: string;
-    backdropPath: string;
+    overview: string;
+    releaseDate: string;
+    genres: string[];
+    runtime: number;
+    type: string;
 }

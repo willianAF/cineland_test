@@ -8,6 +8,7 @@ const imageUrl = 'https://image.tmdb.org/t/p/w1920';
 
 @injectable()
 export class TvShowService implements ITVShowService{
+
     constructor(@inject("ITmdbAPI") private _tmdbAPI: ITmdbAPI) {}
 
     public async getTrendingTvShowsAsync(): Promise<TVShowDTO[]> {
@@ -15,15 +16,19 @@ export class TvShowService implements ITVShowService{
         if(!tvShowData)
             return [];
 
-        const tvShow:TVShowDTO[] = tvShowData.map((tvShow:TvShow) => {
+        const tvShows:TVShowDTO[] = tvShowData.map((tvShow:TvShow) => {
+            
             return{ 
                 id: tvShow.id,
-                title: tvShow.title,
+                title: tvShow.name,
                 posterPath: imageUrl + tvShow.poster_path,
-                backdropPath: imageUrl + tvShow.backdrop_path
+                overview: tvShow.overview,
+                releaseDate: tvShow.first_air_date,
+                genres: tvShow.genres,
+                type: "tv"
             };
         }).slice(0,10);
     
-        return tvShow;
+        return tvShows;
     }
 }

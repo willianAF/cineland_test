@@ -1,6 +1,9 @@
 export interface TvShow {
     id: number,
-    title: string,
+    name: string,
     poster_path: string,
-    backdrop_path: string
+    overview: string,
+    first_air_date: string,
+    genres: string[],
+    type: string
 }

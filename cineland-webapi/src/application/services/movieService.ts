@@ -15,13 +15,18 @@ export class MovieService implements IMovieService{
         const movieData = await this._tmdbAPI.getTrendingMoviesAsync();
         if(!movieData)
             return [];
-        
+
         const movies:MovieDTO[] = movieData.map((movie:Movie) => {
-            return{
+            
+            return {
                 id: movie.id,
                 title: movie.title,
                 posterPath: imageUrl + movie.poster_path,
-                backdropPath: imageUrl + movie.backdrop_path
+                overview: movie.overview,
+                releaseDate: movie.release_date,
+                genres: movie.genres,
+                runtime: movie.runtime,
+                type: "movie"
             };
         }).slice(0,10);
 

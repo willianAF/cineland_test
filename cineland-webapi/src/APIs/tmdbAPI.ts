@@ -8,8 +8,10 @@ const apiKey = process.env.TMDB_APIKEY;
 @injectable()
 export class TmdbAPI implements ITmdbAPI{
     private _httpClient!: Axios;
-    private _trendingMoviePath: string = '3/trending/movie/week?language=pt_BR';
-    private _trendingTvShowPath: string = '3/trending/tv/week?language=pt_BR';
+    private _trendingMoviePath: string = '3/trending/movie/week?language=pt-BR';
+    private _trendingTvShowPath: string = '3/trending/tv/week?language=pt-BR';
+    private _movieDetails: string = '3/movie/';
+    private _tvShowDetails: string = '3/tv/'
 
     constructor() {
         this.createAxiosInstance(); 
@@ -26,18 +28,46 @@ export class TmdbAPI implements ITmdbAPI{
     }
     
     public async getTrendingMoviesAsync(): Promise<Movie[]> {
-        const response = await this._httpClient.get(this._trendingMoviePath);
-        if(response.status !== 200)
-            return [];
-        
-        return response.data.results;
-    }
-    
-    public async getTrendingTvShowsAsync(): Promise<TvShow[]> {
-        const response = await this._httpClient.get(this._trendingTvShowPath);
-        if(response.status !== 200)
+        const trendingData = await this._httpClient.get(this._trendingMoviePath);
+        let detailMovieData = [];
+
+        if(trendingData.status !== 200)
             return [];
 
-        return response.data.results;
+        
+        for(let result of trendingData.data.results){
+            let detail = await this.getDetailsMovieAsync(result.id)
+            detail == undefined ? '' : detailMovieData.push(detail)
+        }
+        return detailMovieData
+        
+    }
+    public async getTrendingTvShowsAsync(): Promise<TvShow[]> {
+        const trendingData = await this._httpClient.get(this._trendingTvShowPath);
+        let detailTvShowData = [];
+
+        if(trendingData.status !== 200)
+            return [];
+
+        for(let result of trendingData.data.results){
+            let detail = await this.getDetailsTvShowsAsync(result.id)
+            detail == undefined ? '' : detailTvShowData.push(detail)
+        }
+        return detailTvShowData;
+    }
+    
+    public async getDetailsMovieAsync(id:number): Promise<Movie | undefined> {
+        const detailMovieData = await this._httpClient.get(this._movieDetails + id + "?language=pt-BR");
+        if(detailMovieData.status !== 200)
+            return ;
+
+        return detailMovieData.data
+    }
+    public async getDetailsTvShowsAsync(id:number): Promise<TvShow | undefined>{
+        const detailTvShowData = await this._httpClient.get(this._tvShowDetails + id + "?language=pt-BR");
+        if(detailTvShowData.status !== 200)
+            return ;
+
+        return detailTvShowData.data
     }
 }
